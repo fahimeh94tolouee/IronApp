@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, phoneNumberChanged, loginUser } from '../actions';
 import { View, Text } from 'react-native';
-import { Card, CardSection, Input, Button } from './common'
+import { Card, CardSection, Input, Button, Spinner } from './common'
 
 class LoginForm extends Component {
   onEmailChange(text) {
@@ -18,16 +18,16 @@ class LoginForm extends Component {
   }
 
   onButtonPress() {
-    const { email, password, navigation } = this.props;
+    const { email, password, phoneNumber, navigation } = this.props;
 
-    this.props.loginUser({ email, password, navigation });
+    this.props.loginUser({ email, password, phoneNumber, navigation });
     // this.props.navigation.navigate("Main");
   }
 
   renderButton() {
-  // if (this.props.loading) {
-    //   return <Spinner size="large" />;
-    // }
+  if (this.props.loading) {
+      return <Spinner size="large" />;
+    }
     return (
       <Button onPress={this.onButtonPress.bind(this)}>
         ثبت نام
@@ -64,6 +64,9 @@ class LoginForm extends Component {
           />
         </CardSection>
 
+        <Text style={styles.errorTextStyle}>
+          {this.props.error}
+        </Text>
         <CardSection>
           {this.renderButton()}
         </CardSection>
@@ -77,11 +80,16 @@ class LoginForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    email: state.auth.email,
-    password: state.auth.password,
-    phoneNumber: state.auth.phoneNumber
-  };
+const styles = {
+  errorTextStyle: {
+    fontSize: 20,
+    alignSelf: 'center',
+    color: 'red'
+  }
+};
+
+const mapStateToProps = ({auth}) => {
+  const { email, password, phoneNumber, error, loading } = auth;
+   return { email, password, phoneNumber, error, loading };
 };
 export default connect(mapStateToProps, { emailChanged, passwordChanged, phoneNumberChanged, loginUser })(LoginForm);

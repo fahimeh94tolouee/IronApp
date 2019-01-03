@@ -2,6 +2,7 @@ import React , {Component} from 'react';
 import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
 import { CardSection, SearchBar } from './common';
 import SellingAdds from './SellingAdds';
+import BuyingAdds from './BuyingAdds';
 
 
 const tabOptions = {
@@ -26,7 +27,7 @@ const tabOptions = {
 
 
 const ProductNavigator = createMaterialTopTabNavigator({
-  'آگهی های خرید': {screen: SellingAdds},
+  'آگهی های خرید': {screen: BuyingAdds},
   'آگهی های فروش':{screen: SellingAdds}
 }, tabOptions);
 
@@ -36,10 +37,6 @@ class HomePage extends Component{
   render(){
     return(
       <React.Fragment>
-      <SearchBar
-        // onChangeText={someMethod}
-        // onClear={someMethod}
-        placeholder='نام غرفه، محصول، کارخانه ...' />
         <CardSection />
         <AppContainer style={{backgroundColor:'#F7F7FD'}}/>
       </React.Fragment>

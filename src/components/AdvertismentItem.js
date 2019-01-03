@@ -1,30 +1,33 @@
 import React, { Component } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, ActivityIndicator } from 'react-native';
 import { Card, CardSection } from './common';
 
 class AdvertismentItem extends Component {
+
   render(){
-    const { title, category, manufacturer, imagesID } = this.props.advertisment;
-    const {imageStyle, descriptionStyle, titleStyle, categoryStyle } = styles;
+    const { title, location, uuid, thumbID } = this.props.advertisment;
+    const {descriptionStyle, titleStyle, categoryStyle } = styles;
     return(
       <Card>
         <CardSection>
-          <Image
-            style={imageStyle}
-            source={require("./img/galvanizeh.png")}
-          />
+        <Image
+          style={styles.imageStyle}
+          source={{uri: `https://iron.platform.atro1.com:1235/api/thumb/${thumbID}/advertise/${uuid}`}}
+        />
         </CardSection>
         <CardSection style={descriptionStyle}>
           <CardSection>
             <Text style={titleStyle}>{title}</Text>
           </CardSection>
+          {
           <CardSection>
-            <Text style={categoryStyle}>{category}</Text>
+            <Text style={categoryStyle}>{location}</Text>
           </CardSection>
-          <CardSection />
-          <CardSection>
-            <Text>{manufacturer}</Text>
-          </CardSection>
+          // <CardSection />
+          // <CardSection>
+          //   <Text>{manufacturer}</Text>
+          // </CardSection>
+          }
         </CardSection>
       </Card>
     );
@@ -32,6 +35,7 @@ class AdvertismentItem extends Component {
 }
 
 export default AdvertismentItem;
+
 
 const styles = {
   descriptionStyle:{
@@ -46,11 +50,11 @@ const styles = {
   titleStyle:{
     fontWeight:'700',
     color:'#4E4E4E',
-    fontSize:15
+    fontSize:12
   },
   categoryStyle:{
     fontWeight:'500',
     color:'#4C4C4C',
-    fontSize:14
+    fontSize:10
   }
 }

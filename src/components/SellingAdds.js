@@ -7,7 +7,7 @@ class SellingAdds extends Component {
   render() {
     return(
       <View>
-        <AdvertismentList />
+        <AdvertismentList type="sell"/>
       </View>
     );
   }
